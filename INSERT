@@ -1,1 +1,96 @@
+USE senai_industrial;
 
+INSERT INTO unidades_senai
+    (id_unidade, nome_unidade, cidade)
+VALUES
+    (1, 'SENAI Campinas', 'Campinas'),
+    (2, 'SENAI Sorocaba', 'Sorocaba'),
+    (3, 'SENAI Santos', 'Santos'),
+    (4, 'SENAI Ribeirão Preto', 'Ribeirão Preto'),
+    (5, 'SENAI São José dos Campos', 'São José dos Campos');
+
+INSERT INTO linhas_producao
+    (id_linha, id_unidade, nome_linha)
+VALUES
+    (1, 1, 'Montagem Automotiva'),
+    (2, 2, 'Usinagem CNC'),
+    (3, 3, 'Soldagem Industrial'),
+    (4, 4, 'Envase e Embalagem'),
+    (5, 5, 'Automação Robótica');
+
+INSERT INTO tipos_maquina
+    (id_tipo, nome_tipo, horas_revisao_padrao)
+VALUES
+    (1, 'Torno CNC', 500),
+    (2, 'Esteira Industrial', 750),
+    (3, 'Robô de Solda', 600),
+    (4, 'Prensa Hidráulica', 400),
+    (5, 'Máquina de Envase', 800);
+
+INSERT INTO maquinas_senai
+    (id_maquina, id_linha, id_tipo, tag_patrimonio,
+     data_aquisicao, status_operacao)
+VALUES
+    (1, 1, 1, 'PAT-2026-001', '2022-03-15', 'ATIVA'),
+    (2, 2, 2, 'PAT-2026-002', '2021-07-20', 'MANUTENCAO'),
+    (3, 3, 3, 'PAT-2026-003', '2023-01-10', 'ATIVA'),
+    (4, 4, 4, 'PAT-2026-004', '2020-11-05', 'DESATIVADA'),
+    (5, 5, 5, 'PAT-2026-005', '2024-06-18', 'ATIVA');
+
+INSERT INTO componentes_maq
+    (id_componente, id_maquina, nome_componente,
+     horas_uso_acumulado, limite_horas_alerta)
+VALUES
+    (1, 1, 'Motor principal', 1200, 2000),
+    (2, 2, 'Correia transportadora', 1800, 2500),
+    (3, 3, 'Tocha de soldagem', 900, 1500),
+    (4, 4, 'Bomba hidráulica', 2200, 3000),
+    (5, 5, 'Válvula de envase', 600, 1200);
+
+INSERT INTO tecnicos
+    (id_tecnico, nome_tecnico, especialidade, nivel_certificacao)
+VALUES
+    (1, 'Ana Souza', 'Mecânica Industrial', 'SENIOR'),
+    (2, 'Bruno Lima', 'Automação', 'PLENO'),
+    (3, 'Carla Mendes', 'Soldagem', 'SPECIALIST'),
+    (4, 'Diego Rocha', 'Hidráulica', 'JUNIOR'),
+    (5, 'Elisa Martins', 'Elétrica Industrial', 'PLENO');
+
+INSERT INTO ordens_servico
+    (id_ordem, id_maquina, id_tecnico, data_abertura,
+     tipo_manutencao, status_os)
+VALUES
+    (1, 1, 1, '2026-10-01 08:30:00', 'PREVENTIVA', 'CONCLUIDA'),
+    (2, 2, 2, '2026-10-03 09:00:00', 'CORRETIVA', 'EM_ANDAMENTO'),
+    (3, 3, 3, '2026-10-05 10:15:00', 'PREDITIVA', 'ABERTA'),
+    (4, 4, 4, '2026-10-07 13:45:00', 'CORRETIVA', 'CANCELADA'),
+    (5, 5, 5, '2026-10-09 14:20:00', 'PREVENTIVA', 'CONCLUIDA');
+
+INSERT INTO estoque_pecas
+    (id_peca, codigo_part_number, descricao,
+     qtd_estoque, preco_unitario)
+VALUES
+    (1, 'ROL-6205', 'Rolamento industrial 6205', 30, 45.90),
+    (2, 'COR-EST-10', 'Correia para esteira industrial', 15, 120.00),
+    (3, 'BIC-SOL-08', 'Bico para tocha de soldagem', 40, 32.50),
+    (4, 'FIL-HID-20', 'Filtro hidráulico', 20, 78.90),
+    (5, 'VAL-ENV-04', 'Válvula para máquina de envase', 12, 215.00);
+
+INSERT INTO pecas_os
+    (id_ordem, id_peca, qtd_utilizada, preco_aplicado)
+VALUES
+    (1, 1, 2, 45.90),
+    (2, 2, 1, 120.00),
+    (3, 3, 3, 32.50),
+    (4, 4, 1, 78.90),
+    (5, 5, 1, 215.00);
+
+INSERT INTO historico_sensores
+    (id_leitura, id_ordem, temperatura_medida,
+     vibracao_mm_s, data_hora_leitura, prompt_geracao_ia)
+VALUES
+    (1, 1, 68.50, 2.10, '2026-10-01 08:35:00', 'Leitura de rotina'),
+    (2, 2, 92.30, 5.40, '2026-10-03 09:10:00', 'Verificar vibracao elevada'),
+    (3, 3, 75.20, 3.20, '2026-10-05 10:20:00', 'Monitoramento preditivo'),
+    (4, 4, 110.00, 6.80, '2026-10-07 13:50:00', 'Temperatura acima do normal'),
+    (5, 5, 63.40, 1.70, '2026-10-09 14:25:00', 'Leitura de rotina');
